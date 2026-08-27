@@ -1,0 +1,11 @@
+﻿# 秘密は絶対に公開しない（この公開リポには元々置かないこと）
+admin/
+*.key.json
+users.json
+.env
+node_modules/
+test/
+# 実データ
+*.csv
+*.xlsx
+*.xls
