@@ -1091,6 +1091,52 @@ body.pdf-export .report-table .report-table-title {
   .header-license-expiry { display: none; }
 }
 
+/* ===== 使い方ガイド（DairyNotebook 共通） ===== */
+.howto{--ht-navy:#1a3a5c;--ht-ink:#1f2937;--ht-sub:#4b5563;--ht-line:#e3e6ea;--ht-soft:#f5f7fa;--ht-blue:#2e6fcc;--ht-blue-lt:#e8f0fc;--ht-amber:#92400e;--ht-amber-lt:#fef3c7;--ht-teal:#0f766e;--ht-teal-lt:#e6f6f3;max-width:860px;margin:0 auto;color:var(--ht-ink);font-size:14px;line-height:1.8}
+.howto *{box-sizing:border-box}
+.howto-hero{background:var(--ht-navy);color:#fff;border-radius:12px;padding:22px 24px;margin-bottom:20px}
+.howto-hero h2{margin:0 0 4px;font-size:21px;font-weight:800;color:#fff;letter-spacing:-.2px}
+.howto-hero p{margin:0;font-size:13.5px;opacity:.9}
+.howto-toc{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;padding:0;list-style:none}
+.howto-toc a{display:inline-block;padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;font-size:12px;text-decoration:none}
+.howto-toc a:hover{background:rgba(255,255,255,.26)}
+.howto-sec{background:#fff;border:1px solid var(--ht-line);border-radius:12px;padding:20px 22px;margin-bottom:16px;scroll-margin-top:90px}
+.howto-sec h3{margin:0 0 12px;font-size:17px;font-weight:800;color:var(--ht-navy);display:flex;align-items:center;gap:8px}
+.howto-sec h3 .howto-no{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--ht-navy);color:#fff;font-size:13px;flex:none}
+.howto-sec h4{margin:16px 0 6px;font-size:14.5px;font-weight:700;color:var(--ht-ink)}
+.howto-sec p{margin:0 0 8px}
+.howto-sec ul{margin:0 0 8px;padding-left:1.3em}
+.howto-sec li{margin:2px 0}
+.howto-steps{list-style:none;margin:0;padding:0;counter-reset:htstep}
+.howto-steps>li{position:relative;padding:2px 0 12px 42px;margin:0;counter-increment:htstep}
+.howto-steps>li::before{content:counter(htstep);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:50%;background:var(--ht-blue-lt);color:var(--ht-blue);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.howto-steps>li::after{content:"";position:absolute;left:13px;top:32px;bottom:2px;width:2px;background:var(--ht-blue-lt)}
+.howto-steps>li:last-child::after{display:none}
+.howto-steps>li>strong:first-child{display:block;color:var(--ht-ink);font-size:14.5px}
+.howto-steps .howto-ui{white-space:nowrap}
+.howto-ui{display:inline-block;padding:0 7px;border:1px solid #cbd2db;border-bottom-width:2px;border-radius:5px;background:var(--ht-soft);font-size:12.5px;font-weight:700;color:var(--ht-ink);line-height:1.7;margin:0 1px}
+.howto-note{border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13.5px;border-left:4px solid}
+.howto-note ul{margin:4px 0 8px;padding-left:1.3em}.howto-note li{margin:2px 0}.howto-note p:last-child,.howto-note ul:last-child{margin-bottom:0}
+.howto-note-title{font-weight:800;margin-bottom:4px;display:block}
+.howto-note.warn{background:var(--ht-amber-lt);border-color:#d97706;color:#4a2a07}
+.howto-note.warn .howto-note-title{color:var(--ht-amber)}
+.howto-note.tip{background:var(--ht-teal-lt);border-color:#14b8a6;color:#113c37}
+.howto-note.tip .howto-note-title{color:var(--ht-teal)}
+.howto-note.info{background:var(--ht-blue-lt);border-color:var(--ht-blue);color:#132b4d}
+.howto-note.info .howto-note-title{color:var(--ht-blue)}
+.howto-table{width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:13.5px}
+.howto-table th,.howto-table td{border:1px solid var(--ht-line);padding:7px 10px;text-align:left;vertical-align:top}
+.howto-table th{background:var(--ht-soft);font-weight:700;white-space:nowrap;width:9.5em}
+.howto-faq details{border:1px solid var(--ht-line);border-radius:8px;padding:0 14px;margin-bottom:8px;background:#fff}
+.howto-faq summary{cursor:pointer;font-weight:700;padding:10px 0;list-style:none}
+.howto-faq summary::-webkit-details-marker{display:none}
+.howto-faq summary::before{content:"Q.";color:var(--ht-blue);margin-right:6px}
+.howto-faq details[open] summary{border-bottom:1px dashed var(--ht-line)}
+.howto-faq details>div{padding:8px 0 10px}
+.howto-foot{font-size:12px;color:var(--ht-sub);text-align:center;margin:18px 0 6px}
+.howto-link{color:var(--ht-blue);font-weight:700;cursor:pointer;text-decoration:underline}
+@media (max-width:640px){.howto-sec{padding:16px 14px}.howto-hero{padding:18px 16px}.howto-table th{width:auto;white-space:normal}}
+@media print{.howto-hero{background:#fff;color:var(--ht-navy);border:2px solid var(--ht-navy)}.howto-hero h2{color:var(--ht-navy)}.howto-toc{display:none}.howto-sec{break-inside:avoid;page-break-inside:avoid}.howto-faq details{break-inside:avoid}}
 </style>
 </head>
 <body>
@@ -1108,6 +1154,7 @@ body.pdf-export .report-table .report-table-title {
             <button type="button" id="navTabReport" class="nav-tab" data-tab="report">レポート</button>
             <button type="button" id="navTabGraphReport" class="nav-tab" data-tab="graph-report">グラフレポート</button>
             <button type="button" id="navTabMating" class="nav-tab" data-tab="mating" hidden>メイティング</button>
+            <button type="button" id="navTabGuide" class="nav-tab" data-tab="guide">使い方ガイド</button>
           </nav>
         </div>
         <div class="app-header-actions">
@@ -1435,6 +1482,115 @@ body.pdf-export .report-table .report-table-title {
       </section>
     </section>
 
+    <!-- 使い方ガイド -->
+    <section id="sectionGuide" class="data-input-page" hidden>
+    <div class="howto">
+      <div class="howto-hero">
+        <h2>📖 使い方ガイド</h2>
+        <p>DairyNotebookGM は、牛群のゲノム評価 CSV を読み込んで、農場向けのゲノムレポート（表・グラフ）を作るアプリです。<br>はじめての方は、上から順に「1」〜「4」を読めば使い始められます。</p>
+        <ul class="howto-toc">
+          <li><a href="#" data-howto-go="ht-ready">1. 準備</a></li>
+          <li><a href="#" data-howto-go="ht-start">2. 作業を始める</a></li>
+          <li><a href="#" data-howto-go="ht-input">3. CSVと指標の設定</a></li>
+          <li><a href="#" data-howto-go="ht-report">4. レポート</a></li>
+          <li><a href="#" data-howto-go="ht-graph">5. グラフレポート</a></li>
+          <li><a href="#" data-howto-go="ht-save">6. データの保存</a></li>
+          <li><a href="#" data-howto-go="ht-faq">7. 困ったとき</a></li>
+        </ul>
+      </div>
+
+      <div class="howto-note warn" style="margin-bottom:16px">
+        <span class="howto-note-title">⚠ 対応している CSV について（必ずお読みください）</span>
+        <p>このアプリは、<strong>ゾエティス（Zoetis）の SearchPoint（サーチポイント）からダウンロードした、農場ごとのゲノム評価 CSV</strong> を読み込むことを想定しています。</p>
+        <ul>
+          <li>CSV には <strong>「動物ID」と「生年月日」の列</strong>が必要です。順位付けには <strong>DWP$・NM$・TPI</strong> のいずれかの列を使います。</li>
+          <li>ほかの評価サービスの CSV や、列名を書き換えたファイルは、正しく読み込めないことがあります。<strong>ダウンロードしたファイルをそのまま</strong>使ってください。</li>
+          <li>Excel ファイル（.xlsx）は読み込めません。CSV（.csv、最大20MB）を使ってください。</li>
+        </ul>
+      </div>
+
+      <section class="howto-sec" id="ht-ready">
+        <h3><span class="howto-no">1</span>準備するもの</h3>
+        <table class="howto-table">
+          <tr><th>パソコン</th><td>Google Chrome または Microsoft Edge（最新版）で開いてください。ほかのブラウザでは保存ファイルの作成・読み込みが使えません。</td></tr>
+          <tr><th>アプリ一式</th><td><strong>DairyNotebookGM.html</strong> と、同じフォルダにある <strong>expiry.min.js</strong>・<strong>libs</strong> フォルダを、フォルダごとコピーして使います。HTML ファイルだけを取り出すと動きません。</td></tr>
+          <tr><th>ゲノムデータ</th><td>SearchPoint からダウンロードした、対象農場のゲノム評価 CSV（上の注意書きを参照）。</td></tr>
+        </table>
+        <div class="howto-note info"><span class="howto-note-title">はじめて起動したとき</span>
+          「利用コード」の入力画面が出ます。ホームページからメールを登録すると届くコードを貼り付けて <span class="howto-ui">認証</span> を押し、「利用前の確認」に同意すると使い始められます（次回からは不要です）。</div>
+      </section>
+
+      <section class="howto-sec" id="ht-start">
+        <h3><span class="howto-no">2</span>作業を始める</h3>
+        <p><span class="howto-ui">データ入力</span> タブの「ローカル保存」で、まず作業方法を選びます。</p>
+        <table class="howto-table">
+          <tr><th>新規作成</th><td>CSV を読み込んで、新しいレポートを作ります。<strong>はじめての方はこちら</strong>です。</td></tr>
+          <tr><th>保存済みを開く</th><td>以前保存した JSON ファイルを開いて、前回の設定の続きから作業します。</td></tr>
+        </table>
+        <p>選ぶと、下に「基本情報」「データアップロード」「指標設定」の欄が表示されます。</p>
+      </section>
+
+      <section class="howto-sec" id="ht-input">
+        <h3><span class="howto-no">3</span>CSV と指標を設定する</h3>
+        <ol class="howto-steps">
+          <li><strong>農場名を入力する（必須）</strong>
+            必要に応じて「生年月日フィルタ」で、対象にする牛の生まれた期間を絞り込めます（例：育成牛だけ）。</li>
+          <li><strong>CSV を入れる</strong>
+            「データアップロード」の枠に SearchPoint の CSV をドラッグ＆ドロップするか、<span class="howto-ui">ファイルを選択</span> で選びます。</li>
+          <li><strong>総合指標を選ぶ（必須）</strong>
+            順位付けに使う指標を <strong>DWP$・NM$・TPI</strong> から1つ選びます。</li>
+          <li><strong>追加指標を選ぶ（最大5つ）</strong>
+            一覧から<strong>ダブルクリック</strong>で追加します。検索欄で絞り込めます。農場が重視したい形質（例：DPR、SCS、乳量）を選ぶと、話し合いに使いやすいレポートになります。</li>
+          <li><strong><span class="howto-ui">レポート生成</span> を押す</strong>
+            レポートタブに切り替わり、表とグラフが表示されます。</li>
+        </ol>
+        <div class="howto-note tip"><span class="howto-note-title">グラフの表示オプション</span>
+          「年別平均ライン」「近似曲線（式・R²）」「目標値ライン（Farm Benchmark）」にチェックを入れると、散布図に線を重ねて表示できます。</div>
+      </section>
+
+      <section class="howto-sec" id="ht-report">
+        <h3><span class="howto-no">4</span>レポートを見る・印刷する</h3>
+        <ul>
+          <li>表は総合指標の順位で並び、各指標のセルは<strong>この牛群の中での位置</strong>で色分けされます（緑：上位25％、黄：下位25％）。</li>
+          <li>散布図の<strong>点をダブルクリック</strong>すると、その牛1頭の情報が表示されます。<span class="howto-ui">IDで探す</span> で特定の牛を探すこともできます。</li>
+          <li>列の見出しの ⓘ や、画面右上の <span class="howto-ui">用語解説</span> で、指標の日本語の説明を確認できます。</li>
+          <li><span class="howto-ui">✏ コメントモード</span> をオンにすると、各項目にコメントを書き込めます。</li>
+          <li>印刷は <span class="howto-ui">印刷画面</span>（全部）、<span class="howto-ui">表のみ印刷</span>、<span class="howto-ui">グラフのみ印刷</span> から選べます。印刷画面で「PDFに保存」を選ぶと PDF になります。</li>
+          <li>設定を変えたいときは <span class="howto-ui">再編集に戻る</span> を押します。</li>
+        </ul>
+      </section>
+
+      <section class="howto-sec" id="ht-graph">
+        <h3><span class="howto-no">5</span>グラフレポート</h3>
+        <p><span class="howto-ui">グラフレポート</span> タブでは、最大24個の形質の散布図を一覧にできます。データ入力タブで CSV を読み込んだあと、表示したい形質をダブルクリックで選び、<span class="howto-ui">グラフレポート生成</span> を押します。<span class="howto-ui">グラフレポート印刷</span> で印刷できます。</p>
+      </section>
+
+      <section class="howto-sec" id="ht-save">
+        <h3><span class="howto-no">6</span>データの保存と引き継ぎ</h3>
+        <ul>
+          <li>データは<strong>お使いのパソコンの中だけ</strong>で処理されます。インターネットへ送信されることはありません。</li>
+          <li>このアプリは<strong>自動保存ではありません</strong>。続きをしたいときは「ローカル保存」の <span class="howto-ui">今すぐ保存</span> を押し、保存場所を選んで JSON ファイルに保存してください。</li>
+          <li>保存時にパスワードを設定すると、ファイルが暗号化されます（任意）。<strong>パスワードを忘れるとファイルを開けなくなります</strong>のでご注意ください。</li>
+          <li>次回は <span class="howto-ui">保存済みを開く</span> でそのファイルを選ぶと、続きから作業できます。</li>
+        </ul>
+      </section>
+
+      <section class="howto-sec howto-faq" id="ht-faq">
+        <h3><span class="howto-no">7</span>困ったとき</h3>
+        <details><summary>CSV を入れてもエラーになる</summary>
+          <div>SearchPoint からダウンロードした CSV か、「動物ID」「生年月日」の列があるかを確認してください。Excel で開いて列名を変えたり、別の形式で保存し直したりすると読み込めないことがあります。</div></details>
+        <details><summary>散布図に「生年月日を解釈できるデータがありません」と出る</summary>
+          <div>CSV の「生年月日」列が 2024/05/01 や 2024-05-01 の形になっているか確認してください。</div></details>
+        <details><summary>「新規作成」「保存済みを開く」ボタンが押せない</summary>
+          <div>お使いのブラウザがファイル保存機能に対応していません。Chrome または Edge の最新版で開いてください。</div></details>
+        <details><summary>グラフが表示されない／画面が真っ白になる</summary>
+          <div>HTML ファイルだけをコピーしていないか確認してください。<strong>expiry.min.js</strong> と <strong>libs</strong> フォルダが同じ場所に必要です。</div></details>
+      </section>
+
+      <p class="howto-foot">このガイドは画面上部の「使い方ガイド」タブからいつでも開けます。</p>
+    </div>
+    </section>
+
       </main>
     </div>
 
@@ -1603,6 +1759,7 @@ body.pdf-export .report-table .report-table-title {
           <p class="guide-security-note">保存ファイルのパスワードはアプリ内に保存されません。忘れるとファイルを開けなくなりますのでご注意ください。</p>
         </div>
 
+        <p style="margin-top:1rem;">詳しい手順は、画面上部の <strong>「使い方ガイド」</strong> タブで確認できます。</p>
         <p style="margin-top:1rem;"><button type="button" id="btnGuideOk" class="btn btn-primary" onclick="document.getElementById('guideModal').hidden=true">はじめる</button></p>
       </div>
     </div>
@@ -2294,6 +2451,8 @@ body.pdf-export .report-table .report-table-title {
     navTabGraphReport: document.getElementById('navTabGraphReport'),
     navTabMating: document.getElementById('navTabMating'),
     sectionMating: document.getElementById('sectionMating'),
+    sectionGuide: document.getElementById('sectionGuide'),
+    navTabGuide: document.getElementById('navTabGuide'),
     matingMainMetric: document.getElementById('matingMainMetric'),
     matingTopPct: document.getElementById('matingTopPct'),
     matingPoolCount: document.getElementById('matingPoolCount'),
@@ -4709,12 +4868,13 @@ body.pdf-export .report-table .report-table-title {
   }
 
   function switchTab(tab) {
-    var tabs = [el.navTabInput, el.navTabReport, el.navTabGraphReport, el.navTabMating];
+    var tabs = [el.navTabInput, el.navTabReport, el.navTabGraphReport, el.navTabMating, el.navTabGuide];
     tabs.forEach(function (t) { if (t) t.classList.remove('active'); });
     el.sectionInput.hidden = true;
     el.sectionReport.hidden = true;
     if (el.sectionGraphReport) el.sectionGraphReport.hidden = true;
     if (el.sectionMating) el.sectionMating.hidden = true;
+    if (el.sectionGuide) el.sectionGuide.hidden = true;
     if (el.reportActionsHeader) el.reportActionsHeader.hidden = true;
     if (el.graphReportActionsHeader) el.graphReportActionsHeader.hidden = true;
     if (tab === 'input') {
@@ -4728,6 +4888,11 @@ body.pdf-export .report-table .report-table-title {
       if (el.sectionGraphReport) el.sectionGraphReport.hidden = false;
       if (el.graphReportActionsHeader) el.graphReportActionsHeader.hidden = !graphReportGenerated;
       if (el.navTabGraphReport) el.navTabGraphReport.classList.add('active');
+    } else if (tab === 'guide') {
+      if (el.sectionGuide) el.sectionGuide.hidden = false;
+      if (el.navTabGuide) el.navTabGuide.classList.add('active');
+      var appMain = document.querySelector('.app-main');
+      if (appMain) appMain.scrollTop = 0;
     } else if (tab === 'mating') {
       if (!matingEntitled) { el.sectionInput.hidden = false; if (el.navTabInput) el.navTabInput.classList.add('active'); return; }
       if (el.sectionMating) el.sectionMating.hidden = false;
@@ -4743,6 +4908,13 @@ body.pdf-export .report-table .report-table-title {
   if (el.navTabReport) el.navTabReport.addEventListener('click', function () { switchTab('report'); });
   if (el.navTabGraphReport) el.navTabGraphReport.addEventListener('click', function () { switchTab('graph-report'); });
   if (el.navTabMating) el.navTabMating.addEventListener('click', function () { switchTab('mating'); });
+  if (el.navTabGuide) el.navTabGuide.addEventListener('click', function () { switchTab('guide'); });
+  if (el.sectionGuide) el.sectionGuide.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-howto-go]');
+    if (!a) return;
+    e.preventDefault();
+    document.getElementById(a.getAttribute('data-howto-go')).scrollIntoView();
+  });
   if (el.matingTraitSelect) el.matingTraitSelect.addEventListener('dblclick', function () {
     if (el.matingTraitSelect.value) addMatingTrait(el.matingTraitSelect.value);
   });
