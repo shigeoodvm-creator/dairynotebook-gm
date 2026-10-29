@@ -384,6 +384,8 @@ body {
 
 .report-section { margin-top: 0; }
 .report-actions-header { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
+.print-size-label { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+.print-size-label select { font-size: 0.9rem; padding: 0.2rem 0.4rem; border-radius: 4px; border: 1px solid #ccc; }
 .report-content { margin-top: 0.5rem; }
 
 .report-header { margin-bottom: var(--space); }
@@ -1165,6 +1167,12 @@ body.pdf-export .report-table .report-table-title {
             <button type="button" id="btnSavePdf" class="btn btn-primary">印刷画面</button>
             <button type="button" id="btnPrintTables" class="btn btn-secondary">表のみ印刷</button>
             <button type="button" id="btnPrintGraphs" class="btn btn-secondary">グラフのみ印刷</button>
+            <label class="print-size-label" for="printSizeSelect">印刷の文字
+              <select id="printSizeSelect">
+                <option value="normal">標準</option>
+                <option value="large">大きめ</option>
+              </select>
+            </label>
             <button type="button" id="btnBackEdit2" class="btn btn-secondary">再編集に戻る</button>
             <button type="button" id="btnCommentMode" class="btn btn-secondary btn-comment-mode">✏ コメントモード</button>
           </div>
@@ -2409,6 +2417,7 @@ body.pdf-export .report-table .report-table-title {
     btnSavePdf: document.getElementById('btnSavePdf'),
     btnPrintTables: document.getElementById('btnPrintTables'),
     btnPrintGraphs: document.getElementById('btnPrintGraphs'),
+    printSizeSelect: document.getElementById('printSizeSelect'),
     termPanel: document.getElementById('termPanel'),
     closeTermPanel: document.getElementById('closeTermPanel'),
     termSearch: document.getElementById('termSearch'),
@@ -3965,6 +3974,37 @@ body.pdf-export .report-table .report-table-title {
     });
   }
 
+  /** 印刷の文字サイズ（標準／大きめ）。高齢の方向けに「大きめ」を選べるようにする。端末ごとに記憶 */
+  var PRINT_SIZE_STORE_KEY = 'dairynotebookgm_print_size';
+  function getPrintSize() {
+    try { return localStorage.getItem(PRINT_SIZE_STORE_KEY) === 'large' ? 'large' : 'normal'; } catch (e) { return 'normal'; }
+  }
+
+  /** 「大きめ」用の上書きCSS。表の列が多いため A4横 にして、表の文字を約11pt（標準は約7pt）にする */
+  function getLargePrintCss() {
+    var b = 'body.print-large ';
+    var r = '@page{size:A4 landscape;margin:10mm;}';
+    r += b + '.print-report-body{max-width:100%!important;padding:0.5rem!important;}';
+    r += b + '.report-header-dl{font-size:0.9rem!important;gap:0.15rem 0.8rem!important;}';
+    r += b + '.report-header-dl .report-farm-name{font-size:1.3rem!important;}';
+    r += b + '.report-brand-name{font-size:1rem!important;}';
+    r += b + '.dashboard-grid{gap:0.4rem!important;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important;}';
+    r += b + '.dashboard-item{padding:0.4rem 0.5rem!important;}';
+    r += b + '.dashboard-item .metric-name{font-size:0.95rem!important;}';
+    r += b + '.dashboard-item .avg,' + b + '.dashboard-item .best,' + b + '.dashboard-item .worst{font-size:0.9rem!important;}';
+    r += b + '.report-page h3{font-size:1.15rem!important;margin-bottom:0.4rem!important;}';
+    r += b + '.table-legend-inner{padding:0.4rem 0.6rem!important;font-size:0.9rem!important;}';
+    r += b + '.table-legend-title{font-size:1rem!important;}';
+    r += b + '.table-legend-intro,' + b + '.table-legend-list{font-size:0.9rem!important;line-height:1.45!important;}';
+    r += b + '.table-legend-swatch{width:0.9rem!important;height:0.9rem!important;}';
+    // 先頭行が表題（colspan）のため fixed だと全列が等幅になり、IDや日付がはみ出す。大きめは中身に合わせた列幅にする
+    r += b + '.report-table{font-size:0.9rem!important;table-layout:auto!important;}';
+    r += b + '.report-table th,' + b + '.report-table td{padding:0.2rem 0.3rem!important;line-height:1.3!important;}';
+    r += b + '.report-table .report-table-title{font-size:1rem!important;padding:0.3rem 0.4rem!important;}';
+    r += b + '.report-table th[data-col],' + b + '.report-table th[data-col="順位"],' + b + '.report-table th[data-col="動物ID"],' + b + '.report-table th[data-col="生年月日"]{width:auto!important;}';
+    r += b + '.report-table td{white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important;}';    return r;
+  }
+
   function openPrintView(mode) {
     mode = mode || 'all';
     var elReport = document.getElementById('reportContent');
@@ -4009,9 +4049,12 @@ body.pdf-export .report-table .report-table-title {
     var inlineCss = getPrintViewInlineCss(mode);
     var printCss = '@page{size:A4 portrait;margin:12mm;}@media print{.print-report-body{max-width:100%!important;padding:0.75rem!important;}.print-report-body .report-header{padding:0.4rem 0.6rem!important;margin-bottom:0.4rem!important;}.print-report-body .report-header-dl{font-size:0.65rem!important;gap:0.08rem 0.5rem!important;}.print-report-body .report-header-dl .report-farm-name{font-size:0.9rem!important;}.print-report-body .report-brand-name{font-size:0.75rem!important;}.print-report-body .card{padding:0.4rem 0.6rem!important;margin-bottom:0.4rem!important;}.print-report-body .dashboard-grid{gap:0.25rem!important;grid-template-columns:repeat(auto-fill,minmax(120px,1fr))!important;}.print-report-body .dashboard-item{padding:0.25rem 0.35rem!important;}.print-report-body .dashboard-item .metric-name{font-size:0.6rem!important;}.print-report-body .dashboard-item .avg,.print-report-body .dashboard-item .best,.print-report-body .dashboard-item .worst{font-size:0.55rem!important;}.print-report-body .report-page h3{font-size:0.75rem!important;margin-bottom:0.25rem!important;padding-bottom:0.15rem!important;}.print-report-body .table-legend-inner{padding:0.25rem 0.4rem!important;font-size:0.6rem!important;}.print-report-body .table-legend-title{font-size:0.7rem!important;}.print-report-body .table-legend-intro,.print-report-body .table-legend-list{font-size:0.6rem!important;line-height:1.25!important;}.print-report-body .table-legend-list li{margin-bottom:0.05rem!important;}.table-wrap{width:100%!important;max-width:100%!important;overflow:visible!important;}.report-table{width:100%!important;max-width:100%!important;table-layout:fixed!important;font-size:0.6rem!important;}.report-table th,.report-table td{padding:0.15rem 0.25rem!important;white-space:normal!important;word-break:break-word!important;overflow-wrap:break-word!important;}.report-table .report-table-title{font-size:0.65rem!important;padding:0.2rem 0.25rem!important;}.report-table thead{display:table-header-group}.report-table tr{page-break-inside:avoid;break-inside:avoid}.scatter-cell{page-break-inside:avoid;break-inside:avoid}.scatter-set h3{page-break-after:avoid}.report-table th[data-col="順位"]{width:3%!important;}.report-table th[data-col="動物ID"]{width:5%!important;}.report-table th[data-col="生年月日"]{width:11%!important;}.report-table td[data-col="生年月日"]{white-space:nowrap!important;}.print-hint{display:none!important}}';
 
+    var isLarge = getPrintSize() === 'large';
+    if (isLarge) printCss += getLargePrintCss();
+
     var title = mode === 'tables' ? '表のみ印刷 - DairyNotebookGM' : '印刷 - DairyNotebookGM';
     var html = '<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>' + title + '</title>' +
-      '<style>' + inlineCss + printCss + '</style></head><body class="print-view">' +
+      '<style>' + inlineCss + printCss + '</style></head><body class="print-view' + (isLarge ? ' print-large' : '') + '">' +
       '<div class="report-content print-report-body">' + clone.innerHTML + '</div>' +
       '<p class="print-hint" style="margin:2rem 1.5rem;font-size:0.9rem;color:#666;">Ctrl+P で印刷してください。</p></body></html>';
     var blob = new Blob([html], { type: 'text/html; charset=utf-8' });
@@ -4026,9 +4069,10 @@ body.pdf-export .report-table .report-table-title {
 
   /** 印刷用ウィンドウ用のインラインCSS（外部スタイルに依存しない）。mode: 'all'|'tables'|'graphs' */
   function getPrintViewInlineCss(mode) {
-    var r = ':root{--bg:#fff;--bg-card:#fafafa;--border:#e0e0e0;--text:#222;--text-muted:#555;--primary:#2563eb;--good:#059669;--good-bg:#d1fae5;--warn:#d97706;--warn-bg:#fef3c7;--space:1.25rem;}';
+    var r = ':root{--bg:#fff;--bg-card:#fafafa;--border:#e0e0e0;--text:#000;--text-muted:#333;--primary:#2563eb;--good:#059669;--good-bg:#d1fae5;--warn:#d97706;--warn-bg:#fef3c7;--space:1.25rem;}';
     r += '*{box-sizing:border-box;}';
-    r += 'body{margin:0;font-family:\'Segoe UI\',\'Hiragino Sans\',\'Hiragino Kaku Gothic ProN\',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;}';
+    // 印刷はUDフォント（Windows 10以降に標準搭載のBIZ UDPゴシック）。無い環境ではヒラギノ・メイリオで代替
+    r += 'body{margin:0;font-family:\'BIZ UDPGothic\',\'BIZ UDPゴシック\',\'Hiragino Sans\',\'Hiragino Kaku Gothic ProN\',\'Meiryo\',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;}';
     r += '.print-report-body{max-width:1200px;margin:0 auto;padding:1.5rem;}';
     r += '.report-content{margin-top:0;}';
     r += '.report-header{margin-bottom:var(--space);padding:var(--space);background:var(--bg-card);border:1px solid var(--border);border-radius:8px;}';
@@ -4390,6 +4434,12 @@ body.pdf-export .report-table .report-table-title {
   el.btnSavePdf.addEventListener('click', savePdf);
   if (el.btnPrintTables) el.btnPrintTables.addEventListener('click', function () { openPrintView('tables'); });
   if (el.btnPrintGraphs) el.btnPrintGraphs.addEventListener('click', function () { openPrintView('graphs'); });
+  if (el.printSizeSelect) {
+    el.printSizeSelect.value = getPrintSize();
+    el.printSizeSelect.addEventListener('change', function () {
+      try { localStorage.setItem(PRINT_SIZE_STORE_KEY, el.printSizeSelect.value); } catch (e) {}
+    });
+  }
   if (el.btnPrintGraphReport) el.btnPrintGraphReport.addEventListener('click', openGraphReportPrintView);
   if (el.btnGenerateGraphReport) el.btnGenerateGraphReport.addEventListener('click', runGraphReport);
   if (el.graphMetricSelect) {
