@@ -1,5 +1,4 @@
-/** DairyNotebook 端末登録 API（Google Apps Script Web アプリ — 申込フォームと同一URL） */
-window.DN_LICENSE_API = {
-  url: 'https://script.google.com/macros/s/AKfycbxlghIWprSX8bnOexOcCJ6_IlV4zf9CdQy_x8wF1ovS8uh2k2eK_zXxIpldcEb4Xayh/exec',
-  token: 'dnOwakiAccess2026v1'
-};
+/** DairyNotebook 端末登録 API（未使用）。
+ * ライセンスは利用コードの署名で端末内検証するため、サーバーへの問い合わせはしない。
+ * 申込サーバーの合言葉はここに置かないこと（公開されるため）。 */
+window.DN_LICENSE_API = {};
